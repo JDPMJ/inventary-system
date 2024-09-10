@@ -1,14 +1,17 @@
+"use client"
 import Index from "@/components/Index"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
 import { authOptions } from "../../pages/api/auth/[...nextauth]"
+import { useUserAuth } from "@/providers/UserAuthContext"
 
-async function page() {
-  const session = await getServerSession(authOptions)
+function page() {
+  //const session = await getServerSession(authOptions)
+  const {userAuth} = useUserAuth()
 
   return (
     <div className="container">
-      {session != null ? <Index /> : redirect("/signin")}
+      <Index />
     </div>
   )
 }

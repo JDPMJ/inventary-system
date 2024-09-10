@@ -1,21 +1,25 @@
 "use client"
+import { useUserAuth } from "@/providers/UserAuthContext"
 import { signIn } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { redirect } from "next/navigation"
 import { ChangeEvent, useState } from "react"
 
 function SigninPage() {
+  const {userAuth, signIn} = useUserAuth()
+
   const [signinForm, setSigninForm] = useState({
     email: "",
     password: ""
   })
-  const router = useRouter()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSigninForm({ ...signinForm, [e.target.name]: e.target.value })
   }
 
-  const handleSignin = async () => {
-    const signInData = await signIn("credentials", {email: signinForm.email, password: signinForm.password, redirect: true, callbackUrl: "/"})
+  const handleSignin = () => {
+    redirect("http://localhost:3000/")
+    
+    //signIn("credentials", {email: signinForm.email, password: signinForm.password, redirect: true, callbackUrl: "/"})
   }
 
   return (

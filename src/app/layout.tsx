@@ -9,6 +9,7 @@ import SessionProvider from "@/providers/SessionProvider"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../pages/api/auth/[...nextauth]"
 import { Toaster } from "react-hot-toast"
+import { UserAuthProvider } from "@/providers/UserAuthContext"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -17,10 +18,27 @@ export const metadata: Metadata = {
   description: "Sistema de inventario web",
 }
 
-export default async function RootLayout({ children, }: Readonly<{ children: React.ReactNode }>) {
-  const session = await getServerSession(authOptions)
+export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode }>) {
+  //const session = await getServerSession(authOptions)
 
   return (
+    <UserAuthProvider>
+      <UserProvider>
+        <ProductProvider>
+          <BootstrapProvider>
+            <html lang="es">
+              <body className={inter.className}>
+                <Toaster />
+                {children}
+              </body>
+            </html>
+          </BootstrapProvider>
+        </ProductProvider>
+      </UserProvider>
+    </UserAuthProvider>
+  )
+
+  /*return (
     <SessionProvider>
       <UserProvider>
         <ProductProvider>
@@ -38,5 +56,5 @@ export default async function RootLayout({ children, }: Readonly<{ children: Rea
         </ProductProvider>
       </UserProvider>
     </SessionProvider>
-  )
+  )*/
 }
