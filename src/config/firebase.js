@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCIVVDBT8syNo0Iouh1XIbUIAqsK5nFdpo",
-  authDomain: "inventory-system-data-base.firebaseapp.com",
-  projectId: "inventory-system-data-base",
-  storageBucket: "inventory-system-data-base.appspot.com",
-  messagingSenderId: "7539242526",
-  appId: "1:7539242526:web:fa5c3e07085bd6de51200f"
+  apiKey: process.env.NEXT_APP_API_KEY,
+  authDomain: process.env.NEXT_APP_AUTH_DOMAIN,
+  projectId: process.env.NEXT_APP_PROYECT_ID,
+  storageBucket: process.env.NEXT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_APP_MESSAGIN_SENDER_ID,
+  appId: process.env.NEXT_APP_APP_ID
 }
 
 export const app = initializeApp(firebaseConfig)
