@@ -25,14 +25,12 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
     <UserAuthProvider>
       <UserProvider>
         <ProductProvider>
-          <BootstrapProvider>
             <html lang="es">
               <body className={inter.className}>
                 <Toaster />
                 {children}
               </body>
             </html>
-          </BootstrapProvider>
         </ProductProvider>
       </UserProvider>
     </UserAuthProvider>
