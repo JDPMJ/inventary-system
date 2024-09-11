@@ -35,8 +35,8 @@ function DownloadBackup() {
   }
 
   useEffect(() => {
-    loadUsers("")
-    loadProducts("")
+    //loadUsers("")
+    //loadProducts("")
   }, [showModalDownload])
 
   return (
