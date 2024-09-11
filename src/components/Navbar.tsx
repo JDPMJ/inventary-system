@@ -25,17 +25,17 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href="http://localhost:3000">Inventary System</a>
+          <a className="navbar-brand" href="/">Inventary System</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="http://localhost:3000/products">Productos</a>
+                <a className="nav-link" aria-current="page" href="/products">Productos</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="http://localhost:3000/users">Usuarios</a>
+                <a className="nav-link" href="/users">Usuarios</a>
               </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Herramientas</a>
