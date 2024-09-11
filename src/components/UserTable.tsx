@@ -1,10 +1,12 @@
 "use client"
 import { useUser } from "@/app/context/UserContext"
-import { ChangeEvent, useEffect } from "react"
+import { ChangeEvent, useContext, useEffect } from "react"
 import { Col, Form, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import AddEditUserDialog from "./AddEditUserDialog"
 import { deleteUser as firebaseDeleteUser, getAuth } from "firebase/auth"
+import { AuthContext } from "@/app/context/AuthContext"
+import useAuthUser from "@/app/hooks/useAuthUser"
 
 /*interface User {
   name: string
@@ -16,6 +18,7 @@ import { deleteUser as firebaseDeleteUser, getAuth } from "firebase/auth"
 }*/
 
 function UserTable() {
+  const {auth, isLogget} = useContext(AuthContext)
   const {users, loadUsers, deleteUser} = useUser()
   
   const handleClick = async (id: string) => {
@@ -42,8 +45,9 @@ function UserTable() {
   }
   
   useEffect(() => {
+    console.log("isLogget en userTable: ", auth)
     loadUsers("")
-  }, [])
+  }, [auth])
 
   return (
     <div className="container">
@@ -51,7 +55,7 @@ function UserTable() {
         <div className="mb-3">
           <Row>
             <Col><Form.Control type="text" placeholder="Buscar usuario" onChange={handleSearch} /></Col>
-            <Col><AddEditUserDialog variant="add" /></Col>
+            <Col>{auth.user_type == "Administrador" && <AddEditUserDialog variant="add" />}</Col>
           </Row>
         </div>
         <table className="table table-hover align-middle">
@@ -59,11 +63,11 @@ function UserTable() {
             <tr>
               <th scope="col">Nombre</th>
               <th scope="col">Nombre de Usuario</th>
-              <th scope="col">Contraseña</th>
+              {auth.user_type == "Administrador" && <th scope="col">Contraseña</th>}
               <th scope="col">Tipo de Usuario</th>
               <th scope="col">Correo</th>
               <th scope="col">Estado</th>
-              <th scope="col">Acciones</th>
+              {auth.user_type == "Administrador" && <th scope="col">Acciones</th>}
             </tr>
           </thead>
           <tbody>
@@ -72,14 +76,14 @@ function UserTable() {
                 <tr key={user.id} className="">
                   <td>{user.name}</td>
                   <td>{user.username}</td>
-                  <td>{user.password}</td>
+                  {auth.user_type == "Administrador" && <td>{user.password}</td>}
                   <td>{user.user_type}</td>
                   <td>{user.email}</td>
                   <td>{user.status}</td>
-                  <td>
+                  {auth.user_type == "Administrador" && <td>
                     <button className="btn btn-danger mx-2" onClick={() => handleClick(user.id)}>Eliminar</button>
                     <AddEditUserDialog variant="edit" user={user} />
-                  </td>
+                  </td>}
                 </tr>
               )
             })}

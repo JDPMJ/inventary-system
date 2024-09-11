@@ -9,7 +9,7 @@ function useAuthUser() {
   const {push} = useRouter()
   const pathname = usePathname()
 
-  const {setIsLogget} = useContext(AuthContext)
+  const {setIsLogget, loadUser} = useContext(AuthContext)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -20,6 +20,7 @@ function useAuthUser() {
         setIsLogget(false)
       } else {
         setIsLogget(true)
+        loadUser(user!.uid!)
         if (pathname === "/signin") {
           push("/")
         }

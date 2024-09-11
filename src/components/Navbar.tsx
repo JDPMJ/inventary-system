@@ -1,14 +1,17 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import DownloadBackup from './DownloadBackup'
 import UploadBackup from './UploadBackup'
 import index from "./../assets/images/index.png"
 import { signOut as firebaseSigninOut, onAuthStateChanged } from "firebase/auth"
 import { auth } from '@/config/firebase'
+import { useUserAuth } from '@/app/context/UserAuthContext'
+import { AuthContext } from '@/app/context/AuthContext'
 
 function Navbar() {
   //const session = useSession()
+  const {isLogget} = useContext(AuthContext)
   const [userData, setUserData] = useState("")
 
   const handleUserOptions = () => {
@@ -16,10 +19,11 @@ function Navbar() {
   }
 
   useEffect(() => {
+    console.log("isLogget in Navbar: ", isLogget)
     onAuthStateChanged(auth, (user) => {
       setUserData(user!.email!)
     })
-  })
+  }, [])
 
   return (
     <>

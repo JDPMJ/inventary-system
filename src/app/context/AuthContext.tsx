@@ -1,4 +1,6 @@
 "use client"
+import { db } from "@/config/firebase"
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react"
 
 interface Auth {
@@ -6,31 +8,29 @@ interface Auth {
   name: string
   username: string
   password: string
-  userType: string
+  user_type: string
   email: string
   status: string
-  authenticate: boolean
 }
 
 export const AuthContext = createContext<{
   auth: Auth,
   isLogget: boolean,
   setIsLogget: Dispatch<SetStateAction<boolean>>,
-  message: () => void
+  loadUser: (id: string) => Promise<void>
 }>({
   auth: {
     id: "",
     name: "",
     username: "",
     password: "",
-    userType: "",
+    user_type: "",
     email: "",
-    status: "",
-    authenticate: false
+    status: ""
   },
   isLogget: false,
   setIsLogget: () => {},
-  message: () => {}
+  loadUser: async (id: string) => {}
 })
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -39,19 +39,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     name: "",
     username: "",
     password: "",
-    userType: "",
+    user_type: "",
     email: "",
-    status: "",
-    authenticate: false
+    status: ""
   })
 
   const [isLogget, setIsLogget] = useState(false)
 
-  function message() {
-    console.log("Ejecutando función")
+  async function loadUser(id: string) {
+    const data = await getDoc(doc(db, "users", id))
+    setAuth({
+      id: id,
+      name: data.data()?.name,
+      username: data.data()?.username,
+      password: data.data()?.password,
+      user_type: data.data()?.user_type,
+      email: data.data()?.email,
+      status: data.data()?.status
+    })
+    console.log(data)
   }
 
-  return <AuthContext.Provider value={{ auth, isLogget, setIsLogget, message }}>
+  return <AuthContext.Provider value={{ auth, isLogget, setIsLogget, loadUser }}>
     {children}
   </AuthContext.Provider>
 }
