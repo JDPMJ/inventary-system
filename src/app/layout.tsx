@@ -7,6 +7,8 @@ import { UserProvider } from "@/providers/UserContext"
 import { ProductProvider } from "@/providers/ProductContext"
 import { Toaster } from "react-hot-toast"
 import { UserAuthProvider } from "@/providers/UserAuthContext"
+import "bootstrap/dist/css/bootstrap.min.css"
+import Bootstrap from "@/components/Bootstrap"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -19,16 +21,17 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
   //const session = await getServerSession(authOptions)
 
   return (
-    <UserAuthProvider>
+    <UserProvider>
       <ProductProvider>
           <html lang="es">
             <body className={inter.className}>
               <Toaster />
+              <Bootstrap />
               {children}
             </body>
           </html>
       </ProductProvider>
-    </UserAuthProvider>
+    </UserProvider>
   )
 
   /*return (
