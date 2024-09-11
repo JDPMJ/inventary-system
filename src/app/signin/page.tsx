@@ -1,6 +1,5 @@
 "use client"
 import { useUserAuth } from "@/providers/UserAuthContext"
-import { signIn } from "next-auth/react"
 import { redirect } from "next/navigation"
 import { ChangeEvent, useState } from "react"
 

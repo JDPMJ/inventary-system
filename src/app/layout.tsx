@@ -6,8 +6,6 @@ import Navbar from "@/components/Navbar"
 import { UserProvider } from "@/providers/UserContext"
 import { ProductProvider } from "@/providers/ProductContext"
 import SessionProvider from "@/providers/SessionProvider"
-import { getServerSession } from "next-auth"
-import { authOptions } from "./api/auth/[...nextauth]"
 import { Toaster } from "react-hot-toast"
 import { UserAuthProvider } from "@/providers/UserAuthContext"
 
