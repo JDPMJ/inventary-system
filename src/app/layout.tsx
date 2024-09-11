@@ -7,7 +7,7 @@ import { UserProvider } from "@/providers/UserContext"
 import { ProductProvider } from "@/providers/ProductContext"
 import SessionProvider from "@/providers/SessionProvider"
 import { getServerSession } from "next-auth"
-import { authOptions } from "../../pages/api/auth/[...nextauth]"
+import { authOptions } from "./api/auth/[...nextauth]"
 import { Toaster } from "react-hot-toast"
 import { UserAuthProvider } from "@/providers/UserAuthContext"
 
@@ -22,18 +22,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
   //const session = await getServerSession(authOptions)
 
   return (
-    <UserAuthProvider>
-      <UserProvider>
-        <ProductProvider>
-            <html lang="es">
-              <body className={inter.className}>
-                <Toaster />
-                {children}
-              </body>
-            </html>
-        </ProductProvider>
-      </UserProvider>
-    </UserAuthProvider>
+    {children}
   )
 
   /*return (

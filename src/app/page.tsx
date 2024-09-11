@@ -2,7 +2,7 @@
 import Index from "@/components/Index"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
-import { authOptions } from "../../pages/api/auth/[...nextauth]"
+import { authOptions } from "./api/auth/[...nextauth]"
 import { useUserAuth } from "@/providers/UserAuthContext"
 
 function page() {
