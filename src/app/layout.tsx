@@ -5,7 +5,6 @@ import BootstrapProvider from "@/providers/BootstrapProvider"
 import Navbar from "@/components/Navbar"
 import { UserProvider } from "@/providers/UserContext"
 import { ProductProvider } from "@/providers/ProductContext"
-import SessionProvider from "@/providers/SessionProvider"
 import { Toaster } from "react-hot-toast"
 import { UserAuthProvider } from "@/providers/UserAuthContext"
 
