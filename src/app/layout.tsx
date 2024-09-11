@@ -3,12 +3,12 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import BootstrapProvider from "@/providers/BootstrapProvider"
 import Navbar from "@/components/Navbar"
-import { UserProvider } from "@/providers/UserContext"
-import { ProductProvider } from "@/providers/ProductContext"
+import { UserProvider } from "@/app/context/UserContext"
+import { ProductProvider } from "@/app/context/ProductContext"
 import { Toaster } from "react-hot-toast"
-import { UserAuthProvider } from "@/providers/UserAuthContext"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Bootstrap from "@/components/Bootstrap"
+import { AuthProvider } from "./context/AuthContext"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -21,17 +21,19 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
   //const session = await getServerSession(authOptions)
 
   return (
-    <UserProvider>
-      <ProductProvider>
-          <html lang="es">
-            <body className={inter.className}>
-              <Toaster />
-              <Bootstrap />
-              {children}
-            </body>
-          </html>
-      </ProductProvider>
-    </UserProvider>
+    <AuthProvider>
+      <UserProvider>
+        <ProductProvider>
+            <html lang="es">
+              <body className={inter.className}>
+                <Toaster />
+                <Bootstrap />
+                {children}
+              </body>
+            </html>
+        </ProductProvider>
+      </UserProvider>
+    </AuthProvider>
   )
 
   /*return (

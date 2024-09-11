@@ -1,6 +1,6 @@
 "use client"
 import { auth } from "@/config/firebase"
-import { useUser } from "@/providers/UserContext"
+import { useUser } from "@/app/context/UserContext"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { ChangeEvent, useEffect, useState } from "react"
 import { Button, Modal } from "react-bootstrap"

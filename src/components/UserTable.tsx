@@ -1,5 +1,5 @@
 "use client"
-import { useUser } from "@/providers/UserContext"
+import { useUser } from "@/app/context/UserContext"
 import { ChangeEvent, useEffect } from "react"
 import { Col, Form, Row } from "react-bootstrap"
 import toast from "react-hot-toast"

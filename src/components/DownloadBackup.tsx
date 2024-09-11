@@ -1,6 +1,6 @@
 "use client"
-import { useProduct } from "@/providers/ProductContext"
-import { useUser } from "@/providers/UserContext"
+import { useProduct } from "@/app/context/ProductContext"
+import { useUser } from "@/app/context/UserContext"
 import { useEffect, useState } from "react"
 import { Button, Modal } from "react-bootstrap"
 

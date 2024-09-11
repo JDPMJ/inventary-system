@@ -1,5 +1,5 @@
 "use client"
-import { useProduct } from "@/providers/ProductContext"
+import { useProduct } from "@/app/context/ProductContext"
 import { ChangeEvent, useEffect, useState } from "react"
 import { Button, Modal } from "react-bootstrap"
 import toast from "react-hot-toast"

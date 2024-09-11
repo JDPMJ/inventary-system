@@ -1,18 +1,25 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import DownloadBackup from './DownloadBackup'
 import UploadBackup from './UploadBackup'
 import index from "./../assets/images/index.png"
-import { signOut as firebaseSigninOut } from "firebase/auth"
+import { signOut as firebaseSigninOut, onAuthStateChanged } from "firebase/auth"
 import { auth } from '@/config/firebase'
 
 function Navbar() {
   //const session = useSession()
+  const [userData, setUserData] = useState("")
 
   const handleUserOptions = () => {
     firebaseSigninOut(auth)
   }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUserData(user!.email!)
+    })
+  })
 
   return (
     <>
@@ -49,7 +56,7 @@ function Navbar() {
             <div className="dropdown">
               <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src={index.src} style={{ width: 40, marginRight: "10px" }} />
-                {/*session?.data?.user?.email*/}
+                {userData}
               </button>
               <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                 <li><button className="dropdown-item" onClick={handleUserOptions}>Cerrar sesión</button></li>

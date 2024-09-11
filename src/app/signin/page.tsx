@@ -1,10 +1,17 @@
 "use client"
-import { useUserAuth } from "@/providers/UserAuthContext"
-import { redirect } from "next/navigation"
+import { useUserAuth } from "@/app/context/UserAuthContext"
+import { useRouter } from "next/navigation"
 import { ChangeEvent, useState } from "react"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth } from "@/config/firebase"
+import toast from "react-hot-toast"
+import useAuthUser from "../hooks/useAuthUser"
 
 function SigninPage() {
+  useAuthUser()
   const {userAuth, signIn} = useUserAuth()
+
+  const {push} = useRouter()
 
   const [signinForm, setSigninForm] = useState({
     email: "",
@@ -15,9 +22,13 @@ function SigninPage() {
     setSigninForm({ ...signinForm, [e.target.name]: e.target.value })
   }
 
-  const handleSignin = () => {
-    redirect("http://localhost:3000/")
-    
+  const handleSignin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, signinForm.email, signinForm.password)
+      push("/users")
+    } catch (error) {
+      toast.error("Problema al intentar iniciar sesión, por favor verifique los datos e intente nuevamente.")
+    }
     //signIn("credentials", {email: signinForm.email, password: signinForm.password, redirect: true, callbackUrl: "/"})
   }
 
