@@ -22,7 +22,16 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
   //const session = await getServerSession(authOptions)
 
   return (
-    {children}
+    <UserAuthProvider>
+      <ProductProvider>
+          <html lang="es">
+            <body className={inter.className}>
+              <Toaster />
+              {children}
+            </body>
+          </html>
+      </ProductProvider>
+    </UserAuthProvider>
   )
 
   /*return (
