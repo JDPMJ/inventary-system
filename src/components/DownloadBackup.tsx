@@ -45,8 +45,9 @@ function DownloadBackup() {
       `${new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.cost_price)}`,
       `${new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.sales_price)}`
     ])
+    docPDF.text(`Cantidad de Productos: ${users.length}`, 13, 32)
     autoTable(docPDF, {
-      startY: 30,
+      startY: 35,
       columnStyles: { 4: { halign: "right" }, 6: { halign: "right" }, 7: { halign: "right" } },
       head: columns,
       body: data
