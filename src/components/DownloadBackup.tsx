@@ -3,6 +3,8 @@ import { useProduct } from "@/app/context/ProductContext"
 import { useUser } from "@/app/context/UserContext"
 import { useEffect, useState } from "react"
 import { Button, Modal } from "react-bootstrap"
+import jsPDF from "jspdf"
+import autoTable from "jspdf-autotable"
 
 function DownloadBackup() {
   const [showModalDownload, setShowModalDownload] = useState(false)
@@ -29,8 +31,32 @@ function DownloadBackup() {
     document.body.removeChild(link)
   }
 
+  const generatePDF = () => {
+    const docPDF = new jsPDF()
+    docPDF.text("Reporte de Productos", 80, 20)
+    const columns = [["Referencia", "Producto", "Marca", "Modelo", "Cantidad", "Unidad", "Precio de Costo", "Precio de Venta"]]
+    const data = products.map((product) => [
+      `${product.reference}`,
+      `${product.name}`,
+      `${product.brand}`,
+      `${product.model}`,
+      `${new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.quantity)}`,
+      `${product.unit_type}`,
+      `${new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.cost_price)}`,
+      `${new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.sales_price)}`
+    ])
+    autoTable(docPDF, {
+      startY: 30,
+      columnStyles: { 4: { halign: "right" }, 6: { halign: "right" }, 7: { halign: "right" } },
+      head: columns,
+      body: data
+    })
+    docPDF.save(`Productos.pdf`)
+  }
+
   const handleDownloadButton = () => {
     download()
+    generatePDF()
     handleCloseModalDownload()
   }
 

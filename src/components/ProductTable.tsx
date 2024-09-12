@@ -71,11 +71,11 @@ function ProductTable() {
                   <td>{product.name}</td>
                   <td>{product.brand}</td>
                   <td>{product.model}</td>
-                  <td>{new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.quantity)}</td>
+                  <td className="text-end">{new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.quantity)}</td>
                   <td>{product.unit_type}</td>
-                  <td>{new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.cost_price)}</td>
-                  <td>{new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.sales_price)}</td>
-                  <td>
+                  <td className="text-end">{new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.cost_price)}</td>
+                  <td className="text-end">{new Intl.NumberFormat("ve-ES", { maximumFractionDigits: 2 }).format(product.sales_price)}</td>
+                  <td className="text-center">
                     <button className="btn btn-danger mx-2" onClick={() => handleClick(product.id)}>Eliminar</button>
                     <AddEditProductDialog variant="edit" product={product} />
                   </td>
@@ -83,6 +83,11 @@ function ProductTable() {
               )
             })}
           </tbody>
+          <tfoot>
+            <tr>
+              <th>{products.length} productos</th>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>

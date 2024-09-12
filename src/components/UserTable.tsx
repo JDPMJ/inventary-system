@@ -1,12 +1,10 @@
 "use client"
 import { useUser } from "@/app/context/UserContext"
-import { ChangeEvent, useContext, useEffect } from "react"
+import { ChangeEvent, useContext, useEffect, useState } from "react"
 import { Col, Form, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import AddEditUserDialog from "./AddEditUserDialog"
-import { deleteUser as firebaseDeleteUser, getAuth } from "firebase/auth"
 import { AuthContext } from "@/app/context/AuthContext"
-import useAuthUser from "@/app/hooks/useAuthUser"
 
 /*interface User {
   name: string
@@ -20,6 +18,7 @@ import useAuthUser from "@/app/hooks/useAuthUser"
 function UserTable() {
   const {auth, isLogget} = useContext(AuthContext)
   const {users, loadUsers, deleteUser} = useUser()
+  const [userData, setUserData] = useState<any>([])
   
   const handleClick = async (id: string) => {
     try {
@@ -47,6 +46,15 @@ function UserTable() {
   useEffect(() => {
     console.log("isLogget en userTable: ", auth)
     loadUsers("")
+    const userTable = users.map((user) => ({
+      name: user.name,
+      username: user.username,
+      password: user.password,
+      user_type: user.user_type,
+      email: user.email,
+      status: user.status
+    }))
+    setUserData(userTable)
   }, [auth])
 
   return (
@@ -88,6 +96,11 @@ function UserTable() {
               )
             })}
           </tbody>
+          <tfoot>
+            <tr>
+              <th>{users.length} usuarios</th>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>
